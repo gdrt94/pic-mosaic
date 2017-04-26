@@ -1,7 +1,7 @@
 %read
-path = 'C:\Users\Gudrat\images\';
+path = 'C:\Users\Gudrat\Google Drive\Others\Günay\';
 imageFiles = dir(strcat(path, '*jpg'));
-mainImage = imread('C:\Users\Gudrat\images\main.jpg');
+mainImage = imread('C:\Users\Gudrat\Desktop\main3.jpg');
 mainImage = rgb2gray(mainImage);
 nFiles = length(imageFiles);
 
@@ -51,9 +51,10 @@ for i=1:nFiles
 end
 
 %assign dimensions
-pixels = 12;
+pixels = 15;
 squares = 72;
 dimen = pixels*squares;
+amplifier = 17;
 
 %compute mean values of the grids of the main image
 valuesOfMain = zeros(squares, squares);
@@ -92,7 +93,7 @@ for i=1:squares*squares
     valuesOfMain(i_row,i_col) = 256;
     
     resized = imresize(images{1, k}, [128 128]);
-    if mod(i, 19) == 0
+    if mod(i, amplifier) == 0
         k = k + 1;
     end
         
@@ -105,7 +106,7 @@ for i=1:squares*squares
 end
 
 imshow(finalImage);
-imwrite(finalImage,'C:\Users\Gudrat\final.png');
+imwrite(finalImage,'C:\Users\Gudrat\Desktop\final3.png');
 
 %background
 % tempImage = zeros(864, 864);

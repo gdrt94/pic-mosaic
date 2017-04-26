@@ -1,18 +1,21 @@
+function tool (id)
 %% pixel info tool
 % I = imread('BP031b.png');
 % figure, imshow(I);
 %hp = impixelinfo;
 %diameter = imdistline(gca);
-%diam : BP040: 91.66; BP031b: 44.50 BP031: 35
+%diam : BP040: 91.66; BP031b: 44.50; BP031: 35; BP063: 42.77; BP079: 32
 %default 'Sensitivity',0.985
 
 %% main
-I = imread('BP031.png'); %BP031b.png BP013G
+%id = 'BP079';
+I = imread(strcat(id, '_cropped.png')); %BP031b.png BP013G
 %IForOcr = imread('BP031.png');
 figure, imshow(I);
-
-[centers, radii, metric] = imfindcircles(I,[17 18],'ObjectPolarity','dark', ...
-    'Sensitivity',0.99,'EdgeThreshold',0.1); %dark, cause background is brighter, for BP040: [44 48], for 31b and 13 [21 23]
+%TODO: HARDCODE RADIUSRANGE!!! SWITCH 'id'
+[centers, radii, metric] = imfindcircles(I,[16 17],'ObjectPolarity','dark', ...
+    'Sensitivity',0.99,'EdgeThreshold',0.1); %dark, cause background is brighter
+%for BP040: [44 48], for 31b and 13: [21 23], for 63: [21 22], for 79: [15 17]
 %delete(h); %comment this line in first iteration
 h = [];
 h = viscircles(centers,radii);
@@ -82,21 +85,21 @@ for i=1:len
     elseif strcmp(returnString{i, 1}, 'IV') == 1
         centers(i, 3) = 4;
     elseif strcmp(returnString{i, 1}, 'V') == 1
-        centers(i, 3) = 4;
+        centers(i, 3) = 5;
     elseif strcmp(returnString{i, 1}, 'VI') == 1
-        centers(i, 3) = 4; 
+        centers(i, 3) = 6; 
     elseif strcmp(returnString{i, 1}, 'VII') == 1
-        centers(i, 3) = 4;
+        centers(i, 3) = 7;
     elseif strcmp(returnString{i, 1}, 'VIII') == 1
-        centers(i, 3) = 4;
+        centers(i, 3) = 8;
     end   
 end
 
 figure; imshow(I);
 title('Recognition of circles and OCR of values in them');
 
-dlmwrite('finalResults.txt', centers, 'delimiter',' ');
+dlmwrite(strcat(id,'_heightPoints.txt'), centers, 'delimiter',' ');
 
-
+end
 
 
