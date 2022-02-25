@@ -1,5 +1,5 @@
 %read
-path = 'C:\Users\Gudrat\Google Drive\Others\Günay\';
+path = 'C:\Users\Gudrat\Pictures\';
 imageFiles = dir(strcat(path, '*jpg'));
 mainImage = imread('C:\Users\Gudrat\Desktop\main3.jpg');
 mainImage = rgb2gray(mainImage);
